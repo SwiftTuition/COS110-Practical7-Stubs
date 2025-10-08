@@ -284,19 +284,17 @@ gcov -f -m -r -j Storage.cpp ForwardStrategy.cpp ReverseStrategy.cpp RandomStrat
 - [ ] Delete before setting to NULL in removeData
 - [ ] Destructor handles all cleanup
 
-## 🎯 Grading Breakdown
+## 🎯 Grading Components
 
-| Component | Marks |
-|-----------|-------|
-| ForwardStrategy | 28% |
-| ReverseStrategy | 28% |
-| RandomStrategy | 28% |
-| FibonacciStrategy | 28% |
-| Memory Management (Valgrind) | 10% |
-| Testing Coverage | 10% |
-| **Total** | **132% (capped at 100%)** |
+Your submission will be graded on:
 
-You have room for mistakes! Focus on getting the core strategies working first.
+| Component | Details |
+|-----------|---------|
+| **Strategy Implementations** | ForwardStrategy, ReverseStrategy, RandomStrategy, FibonacciStrategy |
+| **Memory Management** | Approximately 10% of marks - Valgrind must show zero memory leaks |
+| **Testing Coverage** | 10% of assignment marks - Aim for 60%+ coverage to get 80% of testing marks |
+
+**Note:** The exact mark distribution for each strategy is determined by FitchFork test cases. Focus on correct implementation of all four strategies, ensuring zero memory leaks and comprehensive testing.
 
 ## 📚 Additional Resources
 
