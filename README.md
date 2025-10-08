@@ -30,7 +30,24 @@ Once your Codespace loads, the environment will automatically install:
 
 Check the terminal output to confirm everything installed correctly!
 
-### Step 3: Install and Setup Gemini CLI
+### Step 3: Upgrade Node.js to Version 20+
+
+**IMPORTANT:** Gemini CLI requires Node.js 20+, but Codespaces comes with Node.js 18. You MUST upgrade first.
+
+```bash
+# Check current version
+node --version  # Will show v18.x.x
+
+# Upgrade to Node.js 20 using nvm (pre-installed in Codespaces)
+nvm install 20
+nvm use 20
+nvm alias default 20
+
+# Verify upgrade
+node --version  # Should now show v20.x.x
+```
+
+### Step 4: Install and Setup Gemini CLI
 
 ```bash
 # Install Gemini CLI globally
@@ -43,7 +60,13 @@ gemini auth
 # Grant the necessary permissions
 ```
 
-### Step 4: Start Coding!
+**Common Error:** If you skip the Node.js upgrade and try to use Gemini, you'll see:
+```
+ReferenceError: File is not defined
+```
+This means you need to run the nvm commands above to upgrade to Node.js 20.
+
+### Step 5: Start Coding!
 
 ```bash
 # Compile your code (remember: don't compile template .cpp files!)
@@ -76,7 +99,7 @@ Prefer working on your own machine? Follow these steps:
 
 The Gemini CLI is a powerful AI assistant that can help you understand concepts and debug issues.
 
-#### Step 1: Check if Node.js is Already Installed
+#### Step 1: Check Node.js Version
 
 ```bash
 # Open terminal and check
@@ -84,25 +107,33 @@ node --version
 npm --version
 ```
 
-If both commands show version numbers, skip to Step 2. Otherwise, install Node.js:
+**IMPORTANT:** Gemini CLI requires Node.js **version 20 or higher**. If you have v18 or lower, you need to upgrade.
+
+If you don't have Node.js, or need to upgrade to v20+:
 
 **Windows:**
-1. Download Node.js from [nodejs.org](https://nodejs.org)
+1. Download **Node.js 20 LTS** from [nodejs.org](https://nodejs.org)
 2. Run the installer (.msi file)
 3. Restart your computer after installation
-4. Verify: `node --version` and `npm --version`
+4. Verify: `node --version` (should show v20+)
 
 **macOS:**
 ```bash
-# Download from nodejs.org OR use Homebrew
-brew install node
+# Download Node.js 20 LTS from nodejs.org OR use Homebrew
+brew install node@20
+
+# Verify
+node --version  # Should show v20+
 ```
 
 **Linux (Ubuntu/Debian):**
 ```bash
-# Install Node.js 18.x
-curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+# Install Node.js 20.x
+curl -fsSL https://deb.nodesource.com/setup_20.x | sudo -E bash -
 sudo apt-get install -y nodejs
+
+# Verify
+node --version  # Should show v20+
 ```
 
 #### Step 2: Install Gemini CLI
