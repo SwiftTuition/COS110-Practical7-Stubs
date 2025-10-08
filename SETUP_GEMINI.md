@@ -40,18 +40,30 @@ If you're using GitHub Codespaces, the setup is mostly automatic!
 3. Select **"Codespaces"** → **"Create codespace on main"**
 4. Wait for environment to load (30-60 seconds)
 
-### Step 2: Verify Node.js is Available
+### Step 2: Check Node.js Version
 
-GitHub Codespaces comes with Node.js and npm pre-installed. Verify they're available:
+GitHub Codespaces comes with Node.js pre-installed, but it's usually v18. Gemini CLI requires v20+.
 
 ```bash
-node --version
+node --version  # Will likely show v18.x.x
 npm --version
 ```
 
-Both commands should show version numbers.
+### Step 3: Upgrade to Node.js 20
 
-### Step 3: Install Gemini CLI
+**REQUIRED:** Use nvm (pre-installed in Codespaces) to upgrade:
+
+```bash
+# Install Node.js 20
+nvm install 20
+nvm use 20
+nvm alias default 20
+
+# Verify upgrade
+node --version  # Should now show v20.x.x
+```
+
+### Step 4: Install Gemini CLI
 
 ```bash
 # Install Gemini CLI globally
@@ -61,7 +73,7 @@ npm install -g @google/gemini-cli
 gemini --version
 ```
 
-### Step 4: Authenticate
+### Step 5: Authenticate
 
 ```bash
 # Run authentication command
@@ -77,7 +89,7 @@ gemini auth
 # "Authentication successful!"
 ```
 
-### Step 5: Test
+### Step 6: Test
 
 **Interactive Chat Mode (Recommended):**
 ```bash
@@ -95,6 +107,8 @@ gemini
 # Quick questions
 gemini "Explain template classes in C++"
 ```
+
+**Common Error:** If you get `ReferenceError: File is not defined`, you skipped Step 3. Go back and upgrade to Node.js 20.
 
 **Done!** You're ready to use Gemini CLI in Codespaces.
 
