@@ -23,18 +23,20 @@ GitHub Codespaces provides a complete development environment in your browser - 
 
 ### Step 2: Verify Setup
 
-Once your Codespace loads, the environment will automatically:
-- ✅ Install g++ compiler
-- ✅ Install Valgrind for memory leak detection
-- ✅ Install Node.js and npm
-- ✅ Install Gemini CLI
+Once your Codespace loads, the environment will automatically install:
+- ✅ g++ compiler
+- ✅ Valgrind for memory leak detection
+- ✅ Node.js and npm (already pre-installed in Codespaces)
 
 Check the terminal output to confirm everything installed correctly!
 
-### Step 3: Authenticate Gemini CLI
+### Step 3: Install and Setup Gemini CLI
 
 ```bash
-# Run this command in the terminal
+# Install Gemini CLI globally
+npm install -g @google/gemini-cli
+
+# Authenticate with your Google account
 gemini auth
 
 # Follow the URL that appears and login with your Google account
@@ -74,27 +76,26 @@ Prefer working on your own machine? Follow these steps:
 
 The Gemini CLI is a powerful AI assistant that can help you understand concepts and debug issues.
 
-#### Step 1: Install Node.js and npm
+#### Step 1: Check if Node.js is Already Installed
+
+```bash
+# Open terminal and check
+node --version
+npm --version
+```
+
+If both commands show version numbers, skip to Step 2. Otherwise, install Node.js:
 
 **Windows:**
 1. Download Node.js from [nodejs.org](https://nodejs.org)
 2. Run the installer (.msi file)
-3. Follow the installation wizard (accept defaults)
-4. Restart your computer
-5. Verify installation:
-   ```cmd
-   node --version
-   npm --version
-   ```
+3. Restart your computer after installation
+4. Verify: `node --version` and `npm --version`
 
 **macOS:**
 ```bash
-# Using Homebrew
+# Download from nodejs.org OR use Homebrew
 brew install node
-
-# Verify
-node --version
-npm --version
 ```
 
 **Linux (Ubuntu/Debian):**
@@ -102,20 +103,13 @@ npm --version
 # Install Node.js 18.x
 curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
 sudo apt-get install -y nodejs
-
-# Verify
-node --version
-npm --version
 ```
 
 #### Step 2: Install Gemini CLI
 
 ```bash
 # Install globally (works on all platforms)
-npm install -g @google/generative-ai-cli
-
-# Verify installation
-gemini --version
+npm install -g @google/gemini-cli
 ```
 
 **Troubleshooting:**
@@ -150,20 +144,35 @@ gemini auth
 gemini "Hello! Can you help me with C++ templates?"
 ```
 
-### Using Gemini CLI in VS Code
+### Using Gemini CLI - Two Modes
 
-1. **Open Terminal:** Press `` Ctrl + ` `` (backtick) or go to View → Terminal
-2. **Ask questions:**
-   ```bash
-   # Understand concepts
-   gemini "What is a template class in C++?"
+**Mode 1: Interactive Chat (Recommended)**
 
-   # Debug errors
-   gemini "I'm getting 'invalid use of template-name' - what does this mean?"
+Open Terminal (`` Ctrl + ` `` in VS Code or View → Terminal), then start a chat session:
 
-   # Understand algorithms
-   gemini "Explain how the Linear Congruential Generator formula works"
-   ```
+```bash
+# Start interactive chat mode
+gemini
+
+# Now you can ask questions naturally:
+> What is a template class in C++?
+> How does the Linear Congruential Generator work?
+> Explain deep copy vs shallow copy
+> exit  # Type 'exit' to quit the chat
+```
+
+This mode is great for having conversations and asking follow-up questions.
+
+**Mode 2: Single Question**
+
+For quick one-off questions, use quotes:
+
+```bash
+# Single question format
+gemini "What is a template class in C++?"
+gemini "I'm getting 'invalid use of template-name' - what does this mean?"
+gemini "Explain how the Linear Congruential Generator formula works"
+```
 
 **Pro Tips:**
 - Use AI to **understand concepts**, not to generate code to copy
@@ -311,9 +320,13 @@ Your submission will be graded on:
 
 ### Using Gemini AI
 ```bash
-# Example questions
-gemini "What's the difference between T* and T** in templates?"
-gemini "Why do I need deep copy instead of shallow copy?"
+# Interactive chat mode (recommended)
+gemini
+> What's the difference between T* and T** in templates?
+> Why do I need deep copy instead of shallow copy?
+> exit
+
+# OR single questions
 gemini "Explain the Linear Congruential Generator algorithm"
 ```
 

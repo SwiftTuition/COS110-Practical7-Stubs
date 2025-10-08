@@ -40,18 +40,28 @@ If you're using GitHub Codespaces, the setup is mostly automatic!
 3. Select **"Codespaces"** → **"Create codespace on main"**
 4. Wait for environment to load (30-60 seconds)
 
-### Step 2: Verify Installation
+### Step 2: Verify Node.js is Available
 
-The `.devcontainer/post-create.sh` script automatically installs:
-- Node.js and npm
-- Gemini CLI
+GitHub Codespaces comes with Node.js and npm pre-installed. Verify they're available:
 
-Check the terminal output after Codespace loads. You should see:
-```
-✓ Gemini CLI installed successfully!
+```bash
+node --version
+npm --version
 ```
 
-### Step 3: Authenticate
+Both commands should show version numbers.
+
+### Step 3: Install Gemini CLI
+
+```bash
+# Install Gemini CLI globally
+npm install -g @google/gemini-cli
+
+# Verify installation
+gemini --version
+```
+
+### Step 4: Authenticate
 
 ```bash
 # Run authentication command
@@ -67,13 +77,23 @@ gemini auth
 # "Authentication successful!"
 ```
 
-### Step 4: Test
+### Step 5: Test
 
+**Interactive Chat Mode (Recommended):**
 ```bash
-# Ask a test question
-gemini "Hello! Can you help me with C++ templates?"
+# Start interactive chat
+gemini
 
-# You should get a friendly AI response
+# Ask questions naturally
+> Hello! Can you help me with C++ templates?
+> What is a pure virtual function?
+> exit  # Type 'exit' to quit
+```
+
+**Single Question Mode:**
+```bash
+# Quick questions
+gemini "Explain template classes in C++"
 ```
 
 **Done!** You're ready to use Gemini CLI in Codespaces.
@@ -112,11 +132,10 @@ gemini "Hello! Can you help me with C++ templates?"
 ### Step 2: Install Gemini CLI
 
 ```cmd
-# Open Command Prompt as Administrator (optional but recommended)
-# Right-click Command Prompt → "Run as administrator"
+# Open Command Prompt (Admin not required, but may help)
 
 # Install Gemini CLI globally
-npm install -g @google/generative-ai-cli
+npm install -g @google/gemini-cli
 
 # This may take 1-2 minutes
 # Wait for "added X packages" message
@@ -154,7 +173,14 @@ gemini auth
 2. Open your project folder
 3. Open Terminal (Ctrl + `)
 4. Select PowerShell or Command Prompt from dropdown
-5. Try:
+5. Try interactive chat:
+   ```cmd
+   gemini
+   > What is a template class in C++?
+   > exit
+   ```
+
+   OR single questions:
    ```cmd
    gemini "What is a template class in C++?"
    ```
@@ -386,21 +412,44 @@ cat mycode.cpp | gemini "Find bugs in this code"
 
 ## Using Gemini CLI
 
-### Basic Usage
+### Two Usage Modes
+
+**Mode 1: Interactive Chat (Recommended)**
+
+Start a conversation and ask multiple questions:
 
 ```bash
-# Simple question
+# Start interactive mode
+gemini
+
+# Now you can chat naturally:
+> What is a template class?
+> Can you explain that with an example?
+> What's the difference between T* and T**?
+> exit  # Quit the chat
+```
+
+This mode is great for:
+- Having a conversation with follow-up questions
+- Exploring topics in depth
+- Getting clarifications
+
+**Mode 2: Single Question**
+
+For quick one-off questions:
+
+```bash
+# Quick questions
 gemini "What is a template class?"
-
-# Technical question
 gemini "Explain the Linear Congruential Generator algorithm"
-
-# Error help
 gemini "I'm getting 'invalid use of template-name' error. What does this mean?"
-
-# Concept clarification
 gemini "What's the difference between deep copy and shallow copy?"
 ```
+
+This mode is great for:
+- Quick lookups
+- Specific error messages
+- Using in scripts
 
 ### Best Practices
 
@@ -548,7 +597,7 @@ sudo chown -R $USER:$(id -gn $USER) ~/.config
 
 ```bash
 # Installation
-npm install -g @google/generative-ai-cli
+npm install -g @google/gemini-cli
 
 # Authentication
 gemini auth
@@ -556,14 +605,17 @@ gemini auth
 # Check version
 gemini --version
 
-# Basic usage
+# Interactive chat mode
+gemini
+
+# Single question mode
 gemini "your question here"
 
 # Help
 gemini --help
 
 # Update Gemini CLI
-npm update -g @google/generative-ai-cli
+npm update -g @google/gemini-cli
 ```
 
 ---
