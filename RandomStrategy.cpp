@@ -3,9 +3,14 @@
 #include <cmath>
 #include "RandomStrategy.h"
 
+// Static template member definitions (REQUIRED)
+template <class T> int RandomStrategy<T>::a = 1103515245;
+template <class T> int RandomStrategy<T>::c = 12345;
+template <class T> int RandomStrategy<T>::m = 2147483648;
+
 template <class T>
 RandomStrategy<T>::RandomStrategy(int size) : Storage<T>(size) {
-    // TODO: Initialize a, c, m variables
+    // Constructor - static members already initialized above
 }
 
 template <class T>

@@ -7,9 +7,9 @@
 template <class T>
 class RandomStrategy : public Storage<T> {
 private:
-    int a;
-    int c;
-    int m;
+    static int a;
+    static int c;
+    static int m;
 
 public:
     RandomStrategy(int size);
