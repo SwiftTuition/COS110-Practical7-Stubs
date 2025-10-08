@@ -1,279 +1,363 @@
-# COS 110 Practical 7 - Template Classes & Inheritance (Stubs)
+# COS110 Practical 7 - Template Classes & Strategy Pattern
 
-**Swift Tuition - University of Pretoria**
-Contact: admin@swifttuition.co.za
-WhatsApp Support: +27 73 499 6948
+Welcome to Practical 7! This practical focuses on template classes and implementing different traversal strategies using inheritance and polymorphism.
 
----
+## 📚 What You'll Implement
 
-## ⚠️ IMPORTANT: ACADEMIC INTEGRITY
+- **Storage** - Abstract template base class
+- **ForwardStrategy** - Linear traversal from front to back
+- **ReverseStrategy** - Linear traversal from back to front
+- **RandomStrategy** - Traversal using Linear Congruential Generator
+- **FibonacciStrategy** - Traversal using Fibonacci sequence
 
-These are **STARTER STUBS ONLY** - they contain:
-- ✅ Correct file structure
-- ✅ Correct function signatures
-- ✅ TODO comments guiding implementation
-- ❌ **NO algorithmic logic**
-- ❌ **NO implementation code**
+## 🚀 Quick Start with GitHub Codespaces (Recommended)
 
-**You MUST implement all functionality yourself!** Copying implementations from other students or AI-generated code is **plagiarism** and will result in **zero marks**.
+GitHub Codespaces provides a complete development environment in your browser - no local setup required!
 
----
+### Step 1: Open in Codespaces
 
-## 📋 What's Included
+1. Click the green **"Code"** button at the top of this repository
+2. Select **"Codespaces"** tab
+3. Click **"Create codespace on main"**
+4. Wait 30-60 seconds for the environment to build
 
-### Stub Files (Your Starting Point)
-- `Storage.h` & `Storage.cpp` - Abstract base class
-- `ForwardStrategy.h` & `ForwardStrategy.cpp` - Forward traversal
-- `ReverseStrategy.h` & `ReverseStrategy.cpp` - Reverse traversal
-- `RandomStrategy.h` & `RandomStrategy.cpp` - Random (LCG) traversal
-- `FibonacciStrategy.h` & `FibonacciStrategy.cpp` - Fibonacci traversal
-- `main.cpp` - Basic test file (expand this for testing marks!)
+### Step 2: Verify Setup
 
-### Specification Files
-- `Practical7_Specs.md` - Full assignment specifications
-- `Referenced_Figures.md` - UML diagrams and figures
-- `out.txt` - Sample expected output
+Once your Codespace loads, the environment will automatically:
+- ✅ Install g++ compiler
+- ✅ Install Valgrind for memory leak detection
+- ✅ Install Node.js and npm
+- ✅ Install Gemini CLI
 
----
+Check the terminal output to confirm everything installed correctly!
 
-## 🚀 Quick Start
+### Step 3: Authenticate Gemini CLI
 
-### 1. Clone This Repository
 ```bash
-git clone <repository-url>
-cd cos110-practical7-stubs
+# Run this command in the terminal
+gemini auth
+
+# Follow the URL that appears and login with your Google account
+# Grant the necessary permissions
 ```
 
-### 2. Verify Stubs Compile
+### Step 4: Start Coding!
+
 ```bash
-g++ -Werror -Wall main.cpp -o main
+# Compile your code (remember: don't compile template .cpp files!)
+g++ -Wall -Werror main.cpp -o main
+
+# Run your program
 ./main
-```
 
-You should see:
-```
-=== Basic Stub Test ===
-Stubs compiled successfully!
-```
-
-### 3. Start Implementing!
-
-Open each `.cpp` file and implement the `// TODO:` sections:
-
-**Example - Storage.cpp:**
-```cpp
-template <class T>
-Storage<T>::Storage(int size) {
-    // TODO: Initialize member variables
-    // Your code here - initialize data array and size!
-}
-```
-
----
-
-## 📚 Implementation Guide
-
-### What You Need to Implement
-
-#### 1. Storage.cpp (Base Class)
-- **Constructor**: Allocate `T**` array of given size, fill with `0` (NULL)
-- **Destructor**: Delete all allocated memory (no leaks!)
-- **print()**: Output format `[elem1,elem2,-]` where `-` represents NULL
-
-#### 2. ForwardStrategy.cpp
-- **addData()**: Find first empty slot from **front** (index 0 → size-1)
-- **removeData()**: Find and remove value from front
-- **getIndex()**: Search from front, return index or -1
-
-#### 3. ReverseStrategy.cpp
-- **addData()**: Find first empty slot from **back** (index size-1 → 0)
-- **removeData()**: Find and remove value from back
-- **getIndex()**: Search from back, return index or -1
-
-#### 4. RandomStrategy.cpp
-- **Constructor**: Initialize `a = 1103515245`, `c = 12345`, `m = 2147483648`
-- **Algorithm**: Linear Congruential Generator
-  - Reset seed to array size each function call
-  - Formula: `r = (a * r + c) % m`
-  - Max iterations: 3 × array size
-  - Use `r % size` as index
-
-#### 5. FibonacciStrategy.cpp
-- **Algorithm**: Fibonacci sequence (0, 1, 1, 2, 3, 5, 8, 13...)
-  - Reset sequence each function call
-  - Max iterations: 3 × array size
-  - Use `fibValue % size` as index
-
-#### 6. main.cpp (Testing - Worth 10% of Marks!)
-Expand this file with comprehensive tests:
-- Test all strategies with different data types (int, double, char)
-- Test edge cases (full arrays, empty arrays, not found)
-- Test deep copy behavior
-- Aim for **high code coverage** (gcov will be used)
-
----
-
-## 🔑 Critical Implementation Notes
-
-### 1. Function Signatures (MUST MATCH EXACTLY!)
-```cpp
-// ✅ CORRECT - Takes VALUE
-void addData(T value)
-void removeData(T value)
-int getIndex(T value)
-
-// ❌ WRONG - Don't use pointers in parameters!
-void add(T* data)
-void remove(T* data)
-int getIndex(T* data)
-```
-
-### 2. Deep Copy When Adding
-```cpp
-// ✅ CORRECT - Create new pointer
-this->data[i] = new T(value);
-
-// ❌ WRONG - Would be shallow copy
-this->data[i] = &value;
-```
-
-### 3. Memory Management (10% of Marks!)
-- Every `new` must have a `delete`
-- Delete in destructor
-- Delete when removing elements
-- Use `0` instead of `NULL` (C++98)
-- **Verify with valgrind**: `valgrind --leak-check=full ./main`
-
-### 4. Value Comparison
-```cpp
-// ✅ CORRECT - Dereference pointer to compare values
-if (this->data[i] != 0 && *(this->data[i]) == value)
-
-// ❌ WRONG - Compares pointer addresses
-if (this->data[i] == value)
-```
-
----
-
-## 🛠️ Compilation & Testing
-
-### Compile (Standard Method)
-```bash
-g++ -Werror -Wall main.cpp -o main
-```
-
-**Important**: Only compile `main.cpp`, NOT `*.cpp`! Template classes use a special compilation approach (see spec Section 3).
-
-### Run Your Tests
-```bash
-./main
-```
-
-### Check for Memory Leaks (Critical!)
-```bash
+# Check for memory leaks
 valgrind --leak-check=full ./main
 ```
 
-**Target**: `All heap blocks were freed -- no leaks are possible`
+## 💻 Local Development Setup
 
-### Test Coverage (for 10% testing marks)
+Prefer working on your own machine? Follow these steps:
+
+### Prerequisites
+
+1. **C++ Compiler (g++)**
+   - **Windows:** Install MinGW or Visual Studio
+   - **macOS:** Install Xcode Command Line Tools: `xcode-select --install`
+   - **Linux:** `sudo apt-get install build-essential`
+
+2. **Valgrind** (for memory leak detection)
+   - **Linux:** `sudo apt-get install valgrind`
+   - **macOS:** `brew install valgrind`
+   - **Windows:** Use WSL (Windows Subsystem for Linux) or Codespaces
+
+### Setting Up Gemini CLI Locally
+
+The Gemini CLI is a powerful AI assistant that can help you understand concepts and debug issues.
+
+#### Step 1: Install Node.js and npm
+
+**Windows:**
+1. Download Node.js from [nodejs.org](https://nodejs.org)
+2. Run the installer (.msi file)
+3. Follow the installation wizard (accept defaults)
+4. Restart your computer
+5. Verify installation:
+   ```cmd
+   node --version
+   npm --version
+   ```
+
+**macOS:**
 ```bash
-g++ --coverage main.cpp -o main
-./main
-gcov -f -m -r -j *.cpp
+# Using Homebrew
+brew install node
+
+# Verify
+node --version
+npm --version
 ```
 
-Aim for **60%+ coverage** for full testing marks!
+**Linux (Ubuntu/Debian):**
+```bash
+# Install Node.js 18.x
+curl -fsSL https://deb.nodesource.com/setup_18.x | sudo -E bash -
+sudo apt-get install -y nodejs
 
----
+# Verify
+node --version
+npm --version
+```
 
-## 📦 Submission Checklist
+#### Step 2: Install Gemini CLI
 
-Submit a ZIP file named `uXXXXXXXX.zip` (your student number) containing:
+```bash
+# Install globally (works on all platforms)
+npm install -g @google/generative-ai-cli
 
-- ✅ `Storage.cpp`
-- ✅ `ForwardStrategy.cpp`
-- ✅ `ReverseStrategy.cpp`
-- ✅ `RandomStrategy.cpp`
-- ✅ `FibonacciStrategy.cpp`
-- ✅ `main.cpp`
+# Verify installation
+gemini --version
+```
 
-**DO NOT submit**:
-- ❌ `.h` files (FitchFork will use their own)
-- ❌ Compiled files (`.o`, executables)
-- ❌ IDE files
+**Troubleshooting:**
 
-Files must be in the **root** of the ZIP, not in a subfolder!
+- **Windows: "npm not recognized"**
+  - Close and reopen your terminal/VS Code
+  - Restart your computer
+  - Check if Node.js is in your PATH (System Environment Variables)
 
----
+- **macOS/Linux: Permission denied**
+  ```bash
+  # Option 1: Use sudo
+  sudo npm install -g @google/generative-ai-cli
+
+  # Option 2: Change npm prefix
+  npm config set prefix ~/.npm-global
+  export PATH=~/.npm-global/bin:$PATH
+  npm install -g @google/generative-ai-cli
+  ```
+
+#### Step 3: Authenticate Gemini
+
+```bash
+# Run authentication
+gemini auth
+
+# This will open your browser
+# Login with your Google account
+# Grant the necessary permissions
+
+# Test it works
+gemini "Hello! Can you help me with C++ templates?"
+```
+
+### Using Gemini CLI in VS Code
+
+1. **Open Terminal:** Press `` Ctrl + ` `` (backtick) or go to View → Terminal
+2. **Ask questions:**
+   ```bash
+   # Understand concepts
+   gemini "What is a template class in C++?"
+
+   # Debug errors
+   gemini "I'm getting 'invalid use of template-name' - what does this mean?"
+
+   # Understand algorithms
+   gemini "Explain how the Linear Congruential Generator formula works"
+   ```
+
+**Pro Tips:**
+- Use AI to **understand concepts**, not to generate code to copy
+- Ask about specific error messages
+- Request explanations of algorithms and design patterns
+- FitchFork has plagiarism detection - write your own code!
+
+## 📖 What's Included in This Repository
+
+```
+stubs/
+├── .devcontainer/           # GitHub Codespaces configuration
+│   ├── devcontainer.json    # Container setup
+│   └── post-create.sh       # Auto-setup script
+├── Storage.h/.cpp           # Abstract base class (template)
+├── ForwardStrategy.h/.cpp   # Forward traversal strategy
+├── ReverseStrategy.h/.cpp   # Reverse traversal strategy
+├── RandomStrategy.h/.cpp    # Random (LCG) traversal strategy
+├── FibonacciStrategy.h/.cpp # Fibonacci traversal strategy
+├── main.cpp                 # Your testing file
+├── Practical7_Specs.md      # Full specification
+├── Referenced_Figures.md    # UML diagrams explained
+├── README.md                # This file
+└── SETUP_GEMINI.md          # Detailed Gemini setup guide
+```
+
+## 🔨 Compiling Your Code
+
+**Important:** Templates use a special compilation approach!
+
+```bash
+# CORRECT - Don't compile template .cpp files directly!
+g++ -Wall -Werror main.cpp -o main
+
+# WRONG - This will cause linker errors
+g++ -Wall -Werror main.cpp Storage.cpp ForwardStrategy.cpp -o main
+```
+
+**Why?** Template implementations are included at the bottom of header files. The compiler generates code for each template instantiation when you use it.
+
+## 🧪 Testing Your Implementation
+
+### Basic Testing
+
+```bash
+# Compile and run
+g++ -Wall -Werror main.cpp -o main
+./main
+```
+
+### Memory Leak Detection (10% of grade!)
+
+```bash
+# Compile
+g++ -Wall -Werror main.cpp -o main
+
+# Run with Valgrind
+valgrind --leak-check=full ./main
+
+# Look for this message:
+# "All heap blocks were freed -- no leaks are possible"
+```
+
+### Testing Coverage (10% of grade!)
+
+```bash
+# Compile with coverage flags
+g++ --coverage main.cpp -o main
+
+# Run your tests
+./main
+
+# Generate coverage report
+gcov -f -m -r -j Storage.cpp ForwardStrategy.cpp ReverseStrategy.cpp RandomStrategy.cpp FibonacciStrategy.cpp
+
+# Check coverage percentages
+# Target: 60%+ for 80% of testing marks
+```
+
+## 📝 Implementation Checklist
+
+### Storage Base Class
+- [ ] Constructor allocates `T**` array, initializes to NULL
+- [ ] Destructor deletes all non-NULL elements, then deletes array
+- [ ] print() outputs `[element1,element2,...]` format with `-` for NULL
+- [ ] Pure virtual functions declared (= 0)
+
+### ForwardStrategy
+- [ ] Constructor calls parent constructor
+- [ ] addData() finds first NULL from front, makes deep copy
+- [ ] removeData() finds and deletes first occurrence from front
+- [ ] getIndex() searches from front, returns -1 if not found
+
+### ReverseStrategy
+- [ ] Same as ForwardStrategy but traverses from back to front
+- [ ] All loops go from size-1 down to 0
+
+### RandomStrategy
+- [ ] Members a, c, m initialized to correct values
+- [ ] All functions reset r to size at start
+- [ ] Uses formula: `r = |(a * r + c) % m|`
+- [ ] Maximum 3*size iterations
+
+### FibonacciStrategy
+- [ ] All functions generate Fibonacci sequence (0, 1, 1, 2, 3, 5, ...)
+- [ ] Sequence resets at start of each function
+- [ ] Maximum 3*size iterations
+
+### Testing
+- [ ] Test all strategies with int, string, double
+- [ ] Test edge cases: empty, full, single element
+- [ ] Test success and failure cases
+- [ ] Aim for 60%+ coverage
+
+### Memory Management
+- [ ] Zero memory leaks (Valgrind check)
+- [ ] Deep copy in addData: `new T(value)`
+- [ ] Delete before setting to NULL in removeData
+- [ ] Destructor handles all cleanup
 
 ## 🎯 Grading Breakdown
 
-| Component | Marks | Notes |
-|-----------|-------|-------|
-| ForwardStrategy | 28% | Correct traversal implementation |
-| ReverseStrategy | 28% | Correct traversal implementation |
-| RandomStrategy | 28% | Correct LCG algorithm |
-| FibonacciStrategy | 28% | Correct Fibonacci algorithm |
-| **Memory Management** | **10%** | **No leaks with valgrind!** |
-| **Testing Coverage** | **10%** | **Comprehensive main.cpp** |
+| Component | Marks |
+|-----------|-------|
+| ForwardStrategy | 28% |
+| ReverseStrategy | 28% |
+| RandomStrategy | 28% |
+| FibonacciStrategy | 28% |
+| Memory Management (Valgrind) | 10% |
+| Testing Coverage | 10% |
+| **Total** | **132% (capped at 100%)** |
 
-**Total**: 132% (scaled to 100%)
+You have room for mistakes! Focus on getting the core strategies working first.
+
+## 📚 Additional Resources
+
+- **Comprehensive Guide:** Check out the [Practical 7 Guide](../Practical7_Guide/index.html) for detailed explanations
+- **Gemini Setup:** See [SETUP_GEMINI.md](SETUP_GEMINI.md) for detailed setup instructions
+- **Specification:** [Practical7_Specs.md](Practical7_Specs.md) - official requirements
+- **UML Diagrams:** [Referenced_Figures.md](Referenced_Figures.md) - class structure
+
+## 💬 Support
+
+### Swift Tuition Support
+- **Email:** admin@swifttuition.co.za
+- **WhatsApp:** +27 73 499 6948
+
+### Using Gemini AI
+```bash
+# Example questions
+gemini "What's the difference between T* and T** in templates?"
+gemini "Why do I need deep copy instead of shallow copy?"
+gemini "Explain the Linear Congruential Generator algorithm"
+```
+
+## ⚠️ Important Reminders
+
+1. **C++98 Standard:** Use `NULL` not `nullptr`, no auto keyword
+2. **Template Compilation:** Don't compile template .cpp files directly
+3. **Deep Copy:** Always use `new T(value)` when adding data
+4. **Memory Management:** Run Valgrind frequently during development
+5. **Testing:** Write comprehensive tests for 10% of your grade
+6. **Plagiarism:** FitchFork checks for copied code - write your own!
+
+## 🎓 Learning Objectives
+
+By completing this practical, you'll master:
+- Template class syntax and implementation
+- Inheritance with template classes
+- Pure virtual functions and abstract classes
+- Deep vs shallow copying
+- Memory management in template contexts
+- Different traversal algorithms
+- Testing and debugging strategies
+
+## 🚦 Getting Started Checklist
+
+- [ ] Set up Codespaces OR install local tools
+- [ ] Authenticate Gemini CLI
+- [ ] Read Practical7_Specs.md
+- [ ] Review Referenced_Figures.md (UML diagrams)
+- [ ] Read the comprehensive guide
+- [ ] Implement Storage base class
+- [ ] Implement and test ForwardStrategy
+- [ ] Implement and test ReverseStrategy
+- [ ] Implement and test RandomStrategy
+- [ ] Implement and test FibonacciStrategy
+- [ ] Write comprehensive testing main.cpp
+- [ ] Run Valgrind - fix all memory leaks
+- [ ] Run coverage tests - aim for 60%+
+- [ ] Final test before submission
 
 ---
 
-## 💡 Tips for Success
+**Good luck with Practical 7! 🚀**
 
-1. **Start Early**: Template classes are complex!
-2. **Test Incrementally**: Implement one strategy at a time
-3. **Use print() for Debugging**: See what's in your array
-4. **Check Memory Always**: Run valgrind frequently
-5. **Read the Spec Carefully**: Section 4 has all algorithm details
-6. **Ask for Help**: Use consultation sessions if stuck
-
----
-
-## 📧 Support
-
-**Swift Tuition Support Channels:**
-- 📧 Email: admin@swifttuition.co.za
-- 💬 WhatsApp: +27 73 499 6948
-- 🎥 YouTube: [Swift Tuition Channel](https://youtube.com/@swifttuition)
-
-**Course Resources:**
-- Lecture Slides: Week 9 (Templates), Week 10 (Linked Lists)
-- Tutorial: Tutorial 8 exercises
-- Past Papers: Practice with EO2/EO3 questions
-
----
-
-## ⚖️ Academic Integrity Reminder
-
-**These stubs are provided to help you learn, not to copy!**
-
-✅ **Allowed:**
-- Using these stubs as your starting structure
-- Discussing algorithms with classmates
-- Asking tutors for guidance
-- Using lecture notes and textbook
-
-❌ **NOT Allowed (= Plagiarism = 0 marks):**
-- Copying implementations from other students
-- Using AI to generate implementation code
-- Submitting code you don't understand
-- Sharing your completed code with others
-
-**You MUST write your own implementation logic!**
-
----
-
-## 📄 License
-
-These stubs are provided by **Swift Tuition** for educational purposes only.
-© 2024 Swift Tuition. All rights reserved.
-
-For COS 110 students at the University of Pretoria.
-
----
-
-**Good luck! You've got this! 🚀**
+*Remember: Start early, test frequently, and use the Gemini CLI when you're stuck on concepts!*
